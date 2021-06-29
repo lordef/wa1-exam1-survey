@@ -1,7 +1,8 @@
 'use strict';
 
 const path = require('path');
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
+// const server = http.createServer(process.env.PORT || 3000)
 
 const express = require('express');
 const morgan = require('morgan');  // logging middleware
