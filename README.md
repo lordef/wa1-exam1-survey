@@ -7,7 +7,7 @@
   - if admin: redirect to `/admin/surveys`
 
 - `USER` Routes:
-  - Route `/user/surveys`: main page where a user may view and choose one of the published surveys 
+  - Route `/user/surveys`: main page where a user may view and choose one of the published surveys
   - Route `/user/surveys/survey`: page that allows to a user to respond to a choosen survey
 
 - `ADMIN` Routes:
