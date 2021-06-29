@@ -7,7 +7,6 @@ const PORT = process.env.PORT || 3001;
 const express = require('express');
 const morgan = require('morgan');  // logging middleware
 const { check, validationResult } = require('express-validator'); // validation middleware
-app.use(express.static("./client/build"));
 
 
 const passport = require('passport'); // auth middleware
@@ -68,6 +67,7 @@ const app = new express();
 
 app.use(morgan('dev'));
 app.use(express.json()); // parse the body in JSON format => populate req.body attributes
+app.use(express.static("./client/build"));
 
 // custom middleware: check if a given request is coming from an authenticated user
 const isLoggedIn = (req, res, next) => {
