@@ -1,8 +1,13 @@
 'use strict';
 
+const path = require('path');
+const PORT = process.env.PORT || 3001;
+
 const express = require('express');
 const morgan = require('morgan');  // logging middleware
 const { check, validationResult } = require('express-validator'); // validation middleware
+app.use(express.static("./client/build"));
+
 
 const passport = require('passport'); // auth middleware
 const LocalStrategy = require('passport-local').Strategy; // username and password for login
@@ -58,7 +63,7 @@ const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
 
 // init express
 const app = new express();
-const port = 3001;
+// const port = 3001;
 
 app.use(morgan('dev'));
 app.use(express.json()); // parse the body in JSON format => populate req.body attributes
@@ -422,6 +427,15 @@ app.post('/api/user/surveys/survey/answers/open',
 
 
 // activate the server
+/*
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
+*/
+
+/* Endpoint to declare that any request that does not match any other endpoints send back the client React application index.html file */
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
+});
+
+app.listen(PORT, () => console.log(`Server running on PORT: ${PORT}`));
