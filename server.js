@@ -1,8 +1,8 @@
 'use strict';
 
 const path = require('path');
-const PORT = process.env.PORT || 3000;
-// const server = http.createServer(process.env.PORT || 3000)
+const PORT = process.env.PORT || 3001;
+
 
 const express = require('express');
 const morgan = require('morgan');  // logging middleware
@@ -435,10 +435,10 @@ app.listen(port, () => {
 */
 
 /* Endpoint to declare that any request that does not match any other endpoints send back the client React application index.html file */
-// app.get('*', (req, res) => {
-//   res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
+});
 
-app.get('*', (req, res) => { res.redirect('index.html'); });
+// app.get('*', (req, res) => { res.redirect('index.html'); });
 
 app.listen(PORT, () => console.log(`Server running on PORT: ${PORT}`));
