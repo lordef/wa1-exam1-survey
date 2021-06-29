@@ -1,0 +1,117 @@
+#--USER APIs--
+
+### Retrieve the list of all the available surveys
+GET http://localhost:3001/api/user/surveys
+
+
+### Create a new User
+POST http://localhost:3001/api/user/surveys
+Content-Type: application/json
+
+{"name": "Caterina"} 
+
+
+### Retrieve a list of all the questions (with related answers) that fulfill a given survey id
+GET http://localhost:3001/api/user/surveys/1
+
+
+### Insert all answers related to a given CLOSED-answer from a user (new relation user_answer)
+POST http://localhost:3001/api/user/surveys/survey/answers/closed
+Content-Type: application/json
+
+{   "uID": "1", 
+    "question": {
+                    "title": "Question 1" , 
+                    "type": "1",
+                    "min": "1",
+                    "max": "1",
+                    "answers":  [
+                                    {"anID": "2"}, 
+                                    {"anID": "4"}
+                                ]
+                }
+}
+
+
+### Insert a OPEN-ended answer for a user
+POST http://localhost:3001/api/user/surveys/survey/answers/open
+Content-Type: application/json
+
+{"uID": "3", "text": "This is the FIRST answer/response of OPEN-ended question 2", "qID":"2"}
+
+
+#--ADMIN APIs--
+## SESSION 
+### Admin login
+POST http://localhost:3001/api/sessions
+Content-Type: application/json
+
+{"username": "admin1", "password": "firstPassword" } 
+
+### Admin Logout
+DELETE http://localhost:3001/api/sessions/current
+Content-Type: application/json
+
+## SURVEYS
+
+### Retrieve a list of surveys that fulfill a given admin id
+GET http://localhost:3001/api/admin/1/surveys
+
+### Retrieve a list of users that fulfill a given survey id
+GET http://localhost:3001/api/admin/surveys/1/users
+
+### Retrieve a list of answers that fulfill a given question id
+GET http://localhost:3001/api/admin/surveys/survey/questions/1/answers
+
+### Retrieve a list of answers that fulfill a given user and survey
+GET http://localhost:3001/api/admin/surveys/1/answers/2
+
+### Create a new survey
+POST http://localhost:3001/api/admin/surveys/new
+Content-Type: application/json
+#  Survey(sID, title, adID, questions = [], nCompilations = 0) 
+# Question(qID, title, type, min = 0, max = '', sID) {
+
+{
+    "title": "survey 3" ,
+    "adID": "1" ,
+    "questions":[
+                    {
+                        "title": "Question 3" ,
+                        "type": "1",
+                        "min": "1",
+                        "max": "NULL"
+                    },
+                    {
+                        "title": "Question 4" ,
+                        "type": "1",
+                        "min": "1",
+                        "max": "NULL"
+                    },
+                    {
+                        "title": "Question 5" ,
+                        "type": "0",
+                        "min": "1",
+                        "max": "3",
+                        "answers":  [
+                                        {"text": "CLOSED Answer 1"}, 
+                                        {"text": "CLOSED Answer 2"}, 
+                                        {"text": "CLOSED Answer 3"}
+                                    ]
+                    }
+                ]
+}
+
+
+### Retrieve a list of all the questions that fulfill a given survey id
+GET http://localhost:3001/api/admin/surveys/1
+
+
+### Insert a CLOSE-ended answer
+POST http://localhost:3001/api/admin/surveys/survey
+Content-Type: application/json
+
+{ 
+    "text": "This is the FIRST answer/response of CLOSE-answer question 2", 
+    "qID":"2"
+}
